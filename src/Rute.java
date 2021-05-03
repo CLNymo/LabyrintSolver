@@ -1,55 +1,50 @@
 import java.util.ArrayList;
-import java.util.stream.Stream;
 
 abstract class Rute {
-    protected Labyrint minLabyrint;
-    protected int xKoordinat, yKoordinat;
+    protected final Labyrint labyrint;
+    protected final int xKoordinat, yKoordinat;
+    protected final Tuppel tuppel;
     protected Rute nordNabo = null, sorNabo = null, oestNabo = null, vestNabo = null;
-    protected Tuppel tuppel;
     protected Boolean flagg = false;
+    protected RuteGUI GUI; // ruten har en referanse til tilsvarende GUI-knapp
+    // alle init-variablene må være protected for at subklassen skal få tilgang. Er det OK, eller bør det gjøres på en anne måte?
 
     public Rute(Labyrint minLabyrint, int x, int y) {
-        // husk: koordinatsystemet begynner på 0. Første rute har koordinatene [0, 0]
-        this.minLabyrint = minLabyrint;
+        // koordinatsystemet begynner på 0. Første rute har koordinatene [0, 0]
+        labyrint = minLabyrint;
         xKoordinat = x;
         yKoordinat = y;
         tuppel = new Tuppel(this);
+
     }
 
     abstract char tilTegn();
 
     abstract void gaa(ArrayList<Tuppel> forrigeSti);
 
-    public void finnUtvei(){
+    public void finnUtveier(){
         ArrayList<Tuppel> nySti = new ArrayList<Tuppel>();
         nySti.add(tuppel);
         gaa(nySti);
     }
 
-    /*
-    Diskusjon:
-    Er det best at Ruten har ansvar for å sette sine egne naboer, eller burde dette være Labyrintens oppgave?
-    Labyrinten er jo den som skal ha kontroll og sånn, men vi må uansett ha en metode i rute som lar den sette pekerne
-    på naboene?
-     */
-
     public void settNordNabo() {
-        Rute[][] rutenett = minLabyrint.hentRutenett();
+        Rute[][] rutenett = labyrint.hentRutenett();
         nordNabo = rutenett[yKoordinat - 1][xKoordinat];
     }
 
     public void settSorNabo() {
-        Rute[][] rutenett = minLabyrint.hentRutenett();
+        Rute[][] rutenett = labyrint.hentRutenett();
         sorNabo = rutenett[yKoordinat+1][xKoordinat];
     }
 
     public void settOestNabo() {
-        Rute[][] rutenett = minLabyrint.hentRutenett();
+        Rute[][] rutenett = labyrint.hentRutenett();
         oestNabo = rutenett[yKoordinat][xKoordinat + 1];
     }
 
     public void settVestNabo() {
-        Rute[][] rutenett = minLabyrint.hentRutenett();
+        Rute[][] rutenett = labyrint.hentRutenett();
         vestNabo = rutenett[yKoordinat][xKoordinat - 1];
     }
 
@@ -72,6 +67,10 @@ abstract class Rute {
         return hentXKoordinat() == annenRute.hentXKoordinat() && hentYKoordinat() == annenRute.hentYKoordinat();
     }
 
+    public void settGUI(RuteGUI r){GUI = r;}
+    public RuteGUI hentGUI(){return GUI;}
+
+    public Labyrint hentLabyrint(){return labyrint;}
 
     public int hentXKoordinat(){ return xKoordinat;}
     public int hentYKoordinat(){ return yKoordinat;}

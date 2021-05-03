@@ -5,15 +5,24 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import javax.swing.*;
 
-public class VinduGUI {
+public class VinduGUI extends JFrame { // vinduet er en Frame
 
     public VinduGUI(File fil) throws FileNotFoundException {
+        super("Labyrint");
+        setLayout(new BorderLayout());
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        InfoGUI info = new InfoGUI();
         Labyrint labyrint = new Labyrint(fil);
-        labyrint.opprettGUI();
+        LabyrintGUI labyrintGUI = new LabyrintGUI(labyrint, info);
 
-        JFrame vindu = new JFrame("Labyrint");
-        vindu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        add(labyrintGUI, BorderLayout.NORTH);
+        add(info, BorderLayout.SOUTH);
+        pack();
+        setVisible(true);
+
+
 
     }
 }

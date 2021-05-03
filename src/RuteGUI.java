@@ -3,24 +3,42 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class RuteGUI extends JButton {
-    Rute rute;
-    Labyrint labyrint;
-    char tekst;
-    boolean trykketPaa = false;
+    private Rute rute;
+    private char tekst;
+    private LabyrintGUI labyrintGUI;
 
-    public RuteGUI(Rute r){ // ruteGUI er en type knapp
-        super(String.valueOf(r.tilTegn())); // tekst på knapp blir samme som på rute
+
+
+    public RuteGUI(LabyrintGUI l,  Rute r){ // ruteGUI er en type knapp
+        super(""); // tekst på knapp blir samme som på rute
         rute = r;
-        labyrint = rute.hentLabyrint();
         tekst = r.tilTegn();
+        addActionListener(new TrykkPaa());
+        settStandardFarge();
+        labyrintGUI = l;
+        r.settGUI(this);
+        l.leggTilKnapp(this);
+    }
+
+    public void settStandardFarge(){
+        if (tekst == '#'){
+            setBackground(Color.BLACK);
+        } else {
+            setBackground(new Color(249, 189, 221));
+        }
     }
 
     class TrykkPaa implements ActionListener{
+        private boolean trykketPaa = false;
+
         @Override
         public void actionPerformed(ActionEvent e) {
-            trykketPaa = !trykketPaa;
-            if (trykketPaa){
-                labyrint.finnUtveiFra(rute);
+            if (tekst != '#') {
+                trykketPaa = !trykketPaa;
+                if (trykketPaa) {
+                    labyrintGUI.finnUtveierFra(rute);
+                    labyrintGUI.skrivInfo();
+                }
             }
         }
     }

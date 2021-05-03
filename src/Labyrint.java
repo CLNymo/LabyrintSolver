@@ -4,18 +4,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Labyrint {
-    private File fil;
+    private final File fil;
     private Rute[][] rutenett; // [rader][kolonner]
     private int antRader;
     private int antKolonner;
     private ArrayList<ArrayList<Tuppel>> utveier = new ArrayList<ArrayList<Tuppel>>();
-    private final LabyrintGUI GUI;
+
 
     public Labyrint(File fil) throws FileNotFoundException{
         this.fil = fil;
         lesFraFil(); // først setter inn ruter i rutenett
-        settRutenesNaboer(); // deretter går gjennom alle ruter og setter naboene deres
-        GUI = opprettGUI();
+        settRutenesNaboer(); // deretter går gjennom alle ruter og setter naboene derer
+
     }
 
 
@@ -94,16 +94,15 @@ public class Labyrint {
         return utveier;
     }
 
-    public ArrayList<ArrayList<Tuppel>> finnUtveiFra(Rute r){
+    public ArrayList<ArrayList<Tuppel>> finnUtveierFra(Rute r){
         utveier.clear(); // hver gang vi skal finne utveier må vi først tømme beholderen for de gamle
-        r.finnUtvei();
-        GUI.tegnUtveier(utveier);
+        r.finnUtveier();
         return utveier;
     }
 
     public ArrayList<Tuppel> finnKortesteUtveiFra(Rute r){
 
-        finnUtveiFra(r);
+        finnUtveierFra(r);
 
         int minsteLengde = utveier.get(0).size();
         ArrayList<Tuppel> minsteVei = utveier.get(0);
@@ -116,16 +115,12 @@ public class Labyrint {
         System.out.println("Antall utveier funnet: " + utveier.size());
         System.out.println("Korteste utvei (lengde " + minsteLengde + "):");
 
-        for(Tuppel tuppel : minsteVei) System.out.println(tuppel);
         return minsteVei;
     }
 
     public void leggTilUtvei(ArrayList<Tuppel> utvei){
         utvei.remove(0); // fjerner forste element, fordi det er duplikat
         utveier.add(utvei);
-    }
-    public LabyrintGUI opprettGUI() {
-        return new LabyrintGUI(this);
     }
 
 
