@@ -104,6 +104,9 @@ public class Labyrint {
 
         finnUtveierFra(r);
 
+        if (utveier.size() == 0){
+            return null;
+        }
         int minsteLengde = utveier.get(0).size();
         ArrayList<Tuppel> minsteVei = utveier.get(0);
         for (ArrayList<Tuppel> utvei : utveier){
@@ -112,8 +115,6 @@ public class Labyrint {
                 minsteVei = utvei;
             }
         }
-        System.out.println("Antall utveier funnet: " + utveier.size());
-        System.out.println("Korteste utvei (lengde " + minsteLengde + "):");
 
         return minsteVei;
     }

@@ -7,10 +7,6 @@ public class MainGUI {
 
     public static void main(String[] args) throws FileNotFoundException {
         VinduGUI vindu = new VinduGUI(velgFil());
-
-
-
-
     }
 
     private static File velgFil(){

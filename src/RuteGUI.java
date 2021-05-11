@@ -18,6 +18,8 @@ public class RuteGUI extends JButton {
         labyrintGUI = l;
         r.settGUI(this);
         l.leggTilKnapp(this);
+        setPreferredSize(new Dimension(20, 20));
+        setFont(new Font("Arial", Font.PLAIN, 10));
     }
 
     public void settStandardFarge(){

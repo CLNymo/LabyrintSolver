@@ -9,16 +9,16 @@ public class VinduGUI extends JFrame { // vinduet er en Frame
 
     public VinduGUI(File fil) throws FileNotFoundException {
         super("Labyrint");
+
         setLayout(new BorderLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         InfoGUI info = new InfoGUI();
         Labyrint labyrint = new Labyrint(fil);
         LabyrintGUI labyrintGUI = new LabyrintGUI(labyrint, info);
 
 
-        add(labyrintGUI, BorderLayout.NORTH);
-        add(info, BorderLayout.SOUTH);
+        add(labyrintGUI, BorderLayout.EAST);
+        add(info, BorderLayout.WEST);
         pack();
         setVisible(true);
 

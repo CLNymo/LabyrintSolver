@@ -44,11 +44,12 @@ public class LabyrintGUI extends JPanel { // labyrinten er et panel
         clearUtveier(); // fjerner tidligere utveier
         ArrayList<Tuppel> utvei = labyrint.finnKortesteUtveiFra(r);
 
-        for (Tuppel tuppel : utvei){
-            RuteGUI rute = tuppel.hentRute().hentGUI();
-            rute.setBackground(new Color(230, 0, 126));
+        if(utvei != null){
+            for (Tuppel tuppel : utvei) {
+                RuteGUI rute = tuppel.hentRute().hentGUI();
+                rute.setBackground(new Color(230, 0, 126));
+            }
         }
-
     }
 
     public InfoGUI hentInfoGUI(){return infoGUI;}
